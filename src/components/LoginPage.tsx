@@ -4,13 +4,7 @@ import { z } from 'zod';
 import { Cloud, User, Mail, ArrowRight } from 'lucide-react';
 import { User as UserType } from '@/types';
 import { setUser } from '@/helpers/storage-helper';
-
-const loginSchema = z.object({
-  name: z.string().min(5, 'Please enter your name (min 2 chars).'),
-  email: z.email('Please enter a valid email.'),
-});
-
-type LoginForm = z.infer<typeof loginSchema>;
+import { loginSchema , type LoginForm} from '@/app/schemas/auth.schema';
 
 interface LoginPageProps {
   onLogin: (user: UserType) => void;
