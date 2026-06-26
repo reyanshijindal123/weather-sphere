@@ -43,8 +43,8 @@ export default function HourlyChart({ data, unit }: HourlyChartProps) {
   return (
     <div className="glass-card p-6 space-y-4">
       <h3 className="text-white font-semibold text-lg">Hourly Forecast</h3>
-      <ResponsiveContainer width="100%" height={200}>
-        <AreaChart data={converted} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+      <ResponsiveContainer width="100%" height={250}>
+        <AreaChart data={converted} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
           <defs>
             <linearGradient id="tempGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.4} />
@@ -58,15 +58,17 @@ export default function HourlyChart({ data, unit }: HourlyChartProps) {
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
           <XAxis
             dataKey="time"
-            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }}
+            tick={{ fill: 'rgba(255, 255, 255, 0.96)', fontSize: 11 }}
             axisLine={false}
             tickLine={false}
+            tickMargin={12}
           />
           <YAxis
             yAxisId="temp"
-            tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 11 }}
+            tick={{ fill: 'rgba(255,255,255,0.96)', fontSize: 11 }}
             axisLine={false}
             tickLine={false}
+            tickMargin={12}
             tickFormatter={(v) => `${v}${unitLabel}`}
             domain={['auto', 'auto']}
           />

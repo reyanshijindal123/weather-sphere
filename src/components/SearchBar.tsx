@@ -59,7 +59,7 @@ export default function SearchBar({ onSearch, history, favourites, isLoading }: 
         <button
           type="submit"
           disabled={isLoading || !query.trim()}
-          className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white/80 hover:text-white text-xs font-semibold transition-all disabled:opacity-40"
+          className="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white/80 hover:text-white text-xs font-semibold transition-all disabled:opacity-180"
         >
           Go
         </button>

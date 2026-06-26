@@ -28,9 +28,9 @@ export default function DailyForecastGrid({ data, unit }: DailyForecastProps) {
             <Image src={day.icon} alt={day.description} width={40} height={40} className="drop-shadow" />
             <div className="text-center">
               <p className="text-white font-bold text-sm">{day.tempMax}{unitLabel}</p>
-              <p className="text-white/50 text-xs">{day.tempMin}{unitLabel}</p>
+              <p className="text-white/120 text-xs">{day.tempMin}{unitLabel}</p>
             </div>
-            <span className="text-white/50 text-xs text-center leading-tight capitalize hidden sm:block">
+            <span className="text-white/100 text-xs text-center leading-tight capitalize hidden sm:block">
               {day.description}
             </span>
           </div>
