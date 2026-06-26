@@ -45,7 +45,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-sky-600 via-blue-700 to-indigo-800">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-600 via-slate-700 to-slate-800">
       <div className="absolute top-20 left-20 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 

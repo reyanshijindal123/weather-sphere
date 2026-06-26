@@ -73,7 +73,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
   }
 
   const currentFavId = weather.data ? buildCityId(weather.data.city, weather.data.country) : '';
-  const bgGradient = weather.data ? getWeatherBackground(weather.data.conditionMain) : 'from-sky-600 via-blue-500 to-indigo-600';
+  const bgGradient = weather.data ? getWeatherBackground(weather.data.conditionMain) : 'from-slate-600 via-slate-700 to-slate-800';
 
   const daily = forecast.data ? groupForecastByDay(forecast.data.items) : [];
   const hourly = forecast.data ? getHourlyForecast(forecast.data.items) : [];
@@ -118,6 +118,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
           {weather.data && (
             <div className="space-y-6 animate-fadeIn">
               <WeatherCard
+              data={weather.data}
                 unit={unit}
                 isFavourite={isFavourite(currentFavId)}
                 onToggleFavourite={handleToggleFavourite}
