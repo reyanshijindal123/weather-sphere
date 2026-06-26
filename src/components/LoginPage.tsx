@@ -1,9 +1,10 @@
 'use client';
-
 import React, { useState } from 'react';
+import { z } from 'zod';
 import { Cloud, User, Mail, ArrowRight } from 'lucide-react';
 import { User as UserType } from '@/types';
 import { setUser } from '@/helpers/storage-helper';
+import { loginSchema , type LoginForm} from '@/app/schemas/auth.schema';
 
 interface LoginPageProps {
   onLogin: (user: UserType) => void;
@@ -12,14 +13,22 @@ interface LoginPageProps {
 export default function LoginPage({ onLogin }: LoginPageProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
+  const [errors, setErrors] = useState<Partial<LoginForm>>({});
 
   function validate(): boolean {
-    const errs: { name?: string; email?: string } = {};
-    if (!name.trim() || name.trim().length < 2) errs.name = 'Please enter your name (min 2 chars).';
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = 'Please enter a valid email.';
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
+    const result = loginSchema.safeParse({ name: name.trim(), email: email.trim() });
+
+    if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors;
+      setErrors({
+        name: fieldErrors.name?.[0],
+        email: fieldErrors.email?.[0],
+      });
+      return false;
+    }
+
+    setErrors({});
+    return true;
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -32,12 +41,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-sky-600 via-blue-700 to-indigo-800">
-      {/* Decorative blobs */}
       <div className="absolute top-20 left-20 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-sm relative">
-        {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 mb-4 shadow-xl">
             <Cloud size={32} className="text-white" />
@@ -46,7 +53,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           <p className="text-white/60 text-sm mt-1">Your personal weather companion</p>
         </div>
 
-        {/* Card */}
         <div className="glass-card p-8 space-y-6">
           <div>
             <h2 className="text-white text-xl font-semibold">Get started</h2>
