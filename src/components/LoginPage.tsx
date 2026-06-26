@@ -5,16 +5,12 @@ import { Cloud, User, Mail, ArrowRight } from 'lucide-react';
 import { User as UserType } from '@/types';
 import { setUser } from '@/helpers/storage-helper';
 import { loginSchema , type LoginForm} from '@/app/schemas/auth.schema';
-import { useUserStore } from '@/app/store/userStore';
-
 
 interface LoginPageProps {
   onLogin: (user: UserType) => void;
 }
 
 export default function LoginPage({ onLogin }: LoginPageProps) {
-
-  const setUserStore = useUserStore((state)=>state.setUser);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState<Partial<LoginForm>>({});
@@ -40,7 +36,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     if (!validate()) return;
     const user: UserType = { name: name.trim(), email: email.trim(), createdAt: Date.now() };
     setUser(user);
-    setUserStore(user);
     onLogin(user);
   }
 

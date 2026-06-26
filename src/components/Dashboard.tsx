@@ -22,7 +22,6 @@ import HourlyChart from '@/components/HourlyChart';
 import DailyForecastGrid from '@/components/DailyForecast';
 import ErrorMessage from '@/components/ErrorMessage';
 import { WeatherCardSkeleton, ForecastSkeleton, GraphSkeleton } from '@/components/Skeletons';
-import { useWeatherStore } from '@/app/store/weatherStore';
 
 interface DashboardProps {
   user: User;
@@ -34,7 +33,6 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
   const forecast = useForecast();
   const geo = useGeolocation();
   const { unit, toggleUnit } = useTempUnit();
-  const setWeather = useWeatherStore((state)=> state.setWeather);
 
   const [favourites, setFavourites] = useState<FavouriteCity[]>([]);
   const [searchHistory, setSearchHistory] = useState(getSearchHistory());
@@ -118,6 +116,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
           {weather.data && (
             <div className="space-y-6 animate-fadeIn">
               <WeatherCard
+                data={weather.data}
                 unit={unit}
                 isFavourite={isFavourite(currentFavId)}
                 onToggleFavourite={handleToggleFavourite}
