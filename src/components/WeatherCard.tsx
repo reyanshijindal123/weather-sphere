@@ -7,9 +7,10 @@ import { WeatherData, TemperatureUnit } from '@/types';
 import { formatTemp, convertTemp } from '@/helpers/temperature-helper';
 import { formatTime, formatDate } from '@/helpers/date-helper';
 import { formatVisibility, formatWindSpeed, capitalizeDescription, getIconUrl } from '@/helpers/weather-helper';
+import { useWeatherStore } from '@/app/store/weatherStore';
+
 
 interface WeatherCardProps {
-  data: WeatherData;
   unit: TemperatureUnit;
   isFavourite: boolean;
   onToggleFavourite: () => void;
@@ -34,7 +35,12 @@ function StatItem({ icon, label, value }: StatItemProps) {
   );
 }
 
-export default function WeatherCard({ data, unit, isFavourite, onToggleFavourite, onUnitToggle }: WeatherCardProps) {
+export default function WeatherCard({ unit, isFavourite, onToggleFavourite, onUnitToggle }: WeatherCardProps) {
+  const data = useWeatherStore((state)=> state.weather);
+  if(!data) {
+    return <div>Loading...</div>
+  }
+  
   const temp = convertTemp(data.temp, unit);
   const feelsLike = convertTemp(data.feelsLike, unit);
   const unitLabel = unit === 'celsius' ? '°C' : '°F';
